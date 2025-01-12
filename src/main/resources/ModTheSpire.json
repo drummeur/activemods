@@ -1,0 +1,11 @@
+{
+  "modid": "activemods",
+  "name": "ActiveMods",
+  "author_list": ["drummeur"],
+  "credits": "Badge artwork by Tax1k",
+  "description": "Adds an element to the save file containing an array of the names of the loaded mods.",
+  "version": "1.0.0",
+  "sts_version": "12-18-2022",
+  "mts_version": "3.30.0",
+  "dependencies": ["basemod"]
+}
