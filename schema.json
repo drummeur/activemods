@@ -1,0 +1,80 @@
+{
+  "title": "Generated schema for ActiveMods",
+  "type": "object",
+  "properties": {
+    "activemods:active_mods": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "authors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "credits": {
+            "type": "string"
+          },
+          "mod_version": {
+            "type": "object",
+            "properties": {
+              "version": {
+                "type": "string"
+              },
+              "major": {
+                "type": "number"
+              },
+              "minor": {
+                "type": "number"
+              },
+              "patch": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "version",
+              "major",
+              "minor",
+              "patch"
+            ]
+          },
+          "dependencies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "optional_dependencies": {
+            "type": "array",
+            "items": {
+			  "type": "string"
+			}
+          },
+		  "steam_workshop_url": {
+		    "type": "string"
+		  }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "authors",
+          "mod_version"
+        ]
+      }
+    }
+  },
+  "required": [
+    "activemods:active_mods"
+  ]
+}
