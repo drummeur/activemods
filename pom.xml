@@ -22,7 +22,7 @@
 
     <!-- This information will be displayed in ModTheSpire, the modded launcher. -->
     <name>ActiveMods</name>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <description>Adds an element to the save file containing information about the loaded mods.</description>
 
     <!--You shouldn't need to change anything below this point, but feel free to look at it.-->

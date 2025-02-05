@@ -1,17 +1,18 @@
 package activemods.model;
 
 import activemods.ActiveModsConstants;
-import com.evacipated.cardcrawl.modthespire.Loader;
 import com.evacipated.cardcrawl.modthespire.ModInfo;
-import com.evacipated.cardcrawl.modthespire.steam.SteamSearch;
-import com.evacipated.cardcrawl.modthespire.steam.SteamWorkshop;
+
 
 import com.google.gson.annotations.SerializedName;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 
-import java.util.zip.ZipException;
-import java.util.zip.ZipFile;
+import java.util.Map;
+
+import static activemods.ActiveModsMod.modID;
 
 public class ActiveModInfo implements Serializable
 {
@@ -33,8 +34,12 @@ public class ActiveModInfo implements Serializable
     public String[] OptionalDependencies;
     @SerializedName(ActiveModsConstants.STEAM_WORKSHOP_URL_KEY)
     public String SteamWorkshopUrl;
+    @SerializedName(ActiveModsConstants.IS_WORKSHOP_MOD_KEY)
+    public boolean IsSteamWorkshopMod;
 
-    public ActiveModInfo(ModInfo info)
+    public static final Logger logger = LogManager.getLogger(modID);
+
+    public ActiveModInfo(ModInfo info, Map<String, String> ModUrls)
     {
         this.ModId = info.ID;
         this.Name = info.Name;
@@ -44,39 +49,19 @@ public class ActiveModInfo implements Serializable
         this.Description = info.Description;
         this.Dependencies = info.Dependencies;
         this.OptionalDependencies = info.OptionalDependencies;
-        this.SteamWorkshopUrl = this.FindSteamWorkshopUrl(info);
-    }
 
-    private String FindSteamWorkshopUrl(ModInfo info)
-    {
-        return null;
-        /*
-        String url = null;
-        if (info.isWorkshop)
+        this.SteamWorkshopUrl = ModUrls.get(this.ModId);
+
+        if (this.SteamWorkshopUrl == null)
         {
-            for (SteamSearch.WorkshopInfo ws_info : Loader.getWorkshopInfos())
-            {
-                try
-                {
-                    File path = new File(ws_info.getInstallPath());
-                    for (File file : path.listFiles())
-                    {
-                        if (file.isFile() && file.getName().endsWith(".jar"))
-                        {
-                            try (ZipFile zf = new ZipFile(file))
-                            {
-                                zf.getEntry(ActiveModsConstants.MTS_FILENAME);
-                            }
-                        }
-                    }
-                }
-                catch (NullPointerException | IOException ex)
-                {
-                    // do nothing
-                }
-            }
+            logger.info("Missing URL for mod {}.  Add it in the ActiveMods config!", this.Name);
+            this.IsSteamWorkshopMod = false;
         }
-        return url;
-        */
+        else
+        {
+            this.IsSteamWorkshopMod = this.SteamWorkshopUrl.contains(ActiveModsConstants.STEAM_WORKSHOP_BASE_URL);
+        }
+
+        logger.debug("Initialized {}", this.Name);
     }
 }

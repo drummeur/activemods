@@ -60,16 +60,20 @@
 			  "type": "string"
 			}
           },
-		  "steam_workshop_url": {
+		  "mod_url": {
 		    "type": "string"
-		  }
+		  },
+          "is_steam_workshop_mod": {
+            "type": "boolean"
+          }
         },
         "required": [
           "id",
           "name",
           "description",
           "authors",
-          "mod_version"
+          "mod_version",
+          "is_steam_workshop_mod"
         ]
       }
     }

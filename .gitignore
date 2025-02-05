@@ -36,3 +36,8 @@ build/
 
 ### Mac OS ###
 .DS_Store
+*.backUp
+*.displayconfig
+/preferences
+/sendToDevs
+twitchconfig.txt

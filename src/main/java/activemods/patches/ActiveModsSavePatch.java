@@ -1,11 +1,7 @@
 package activemods.patches;
 
 import activemods.ActiveModsConstants;
-import activemods.model.ActiveModInfo;
-import com.evacipated.cardcrawl.modthespire.Loader;
-import com.evacipated.cardcrawl.modthespire.ModInfo;
 import com.evacipated.cardcrawl.modthespire.lib.*;
-import com.evacipated.cardcrawl.modthespire.steam.SteamSearch;
 import com.megacrit.cardcrawl.saveAndContinue.SaveAndContinue;
 import com.megacrit.cardcrawl.saveAndContinue.SaveFile;
 import javassist.CtBehavior;
@@ -14,7 +10,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
-import static activemods.Main.modID;
+import static activemods.ActiveModsMod.ActiveModsInstance;
+import static activemods.ActiveModsMod.modID;
 
 
 // this entire file is yoinked and modified from https://github.com/daviscook477/BaseMod/blob/master/mod/src/main/java/basemod/patches/com/megacrit/cardcrawl/saveAndContinue/SaveAndContinue/Save.java
@@ -31,26 +28,7 @@ public class ActiveModsSavePatch
     )
     public static void Insert(SaveFile save, HashMap<String, Object> params)
     {
-        ArrayList<ActiveModInfo> infos = new ArrayList<>();
-
-        List<SteamSearch.WorkshopInfo> ws_infos = Loader.getWorkshopInfos();
-
-        for (SteamSearch.WorkshopInfo ws_info : ws_infos)
-        {
-            String msg = ws_info.getID() + " " + ws_info.getTitle() + " " + ws_info.getInstallPath();
-            logger.info(msg);
-        }
-
-        for (ModInfo info: Loader.MODINFOS)
-        {
-            infos.add(new ActiveModInfo(info));
-        }
-
-        //ArrayList<ModInfo> mods = new ArrayList<>(Arrays.asList(Loader.MODINFOS));
-
-        //params.put("activemods:active_mods", mods);
-
-        params.put(ActiveModsConstants.ACTIVE_MODS_KEY, infos);
+        params.put(ActiveModsConstants.ACTIVE_MODS_KEY, ActiveModsInstance.GetActiveMods());
     }
 
     private static class Locator extends SpireInsertLocator
