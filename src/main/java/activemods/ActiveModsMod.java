@@ -1,6 +1,5 @@
 package activemods;
 
-import activemods.ui.ModTextInput;
 import basemod.*;
 import basemod.interfaces.PostInitializeSubscriber;
 import activemods.util.*;
