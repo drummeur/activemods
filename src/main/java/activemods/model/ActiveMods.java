@@ -13,7 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-import static activemods.ActiveModsMod.modID;
+import static activemods.ActiveModsMain.modID;
 
 public class ActiveMods
 {

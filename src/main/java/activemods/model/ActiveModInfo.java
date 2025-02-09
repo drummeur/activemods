@@ -12,7 +12,7 @@ import java.io.*;
 
 import java.util.Map;
 
-import static activemods.ActiveModsMod.modID;
+import static activemods.ActiveModsMain.modID;
 
 public class ActiveModInfo implements Serializable
 {

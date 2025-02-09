@@ -1,6 +1,7 @@
 package activemods;
 
-import activemods.ui.ModTextInput;
+import activemods.ui.ActiveModsConfigPanel;
+
 import basemod.*;
 import basemod.interfaces.PostInitializeSubscriber;
 import activemods.util.*;
@@ -19,16 +20,14 @@ import activemods.model.ActiveMods;
 
 import java.util.*;
 
+// todo: I don't really like the way a lot of this class is structured
 @SpireInitializer
-public class ActiveModsMod implements PostInitializeSubscriber
+public class ActiveModsMain implements PostInitializeSubscriber
 {
     public static ModInfo info;
     public static String modID; // Edit your pom.xml to change this
 
-    public static ActiveMods ActiveModsInstance;
-
-    private static float LABEL_X = 475.0f;
-    private static float LABEL_Y = 700.0f;
+    private static ActiveMods container = null;
 
     static
     {
@@ -48,20 +47,27 @@ public class ActiveModsMod implements PostInitializeSubscriber
     // This will be called by ModTheSpire because of the @SpireInitializer annotation at the top of the class.
     public static void initialize()
     {
-        new ActiveModsMod();
+        new ActiveModsMain();
     }
 
-    public ActiveModsMod()
+    private ActiveModsMain()
     {
-        // todo: read in custom URL data
+        container = new ActiveMods();
 
-        if (ActiveModsInstance == null)
-        {
-            ActiveModsInstance = new ActiveMods();
-        }
+        // todo: read in custom URL data
 
         BaseMod.subscribe(this); // This will make BaseMod trigger all the subscribers at their appropriate times.
         logger.info("{} subscribed to BaseMod.", modID);
+    }
+
+    public static ActiveMods GetActiveMods()
+    {
+        if (container == null)
+        {
+            container = new ActiveMods();
+        }
+
+        return container;
     }
 
     @Override
@@ -69,16 +75,7 @@ public class ActiveModsMod implements PostInitializeSubscriber
     {
         Texture badgeTexture = TextureLoader.getTexture(imagePath("badge.png"));
 
-        ModPanel settingsPanel = new ModPanel();
-
-        // todo: mod config page
-
-        ModLabel buttonLabel = new ModLabel("Coming soon!", LABEL_X, LABEL_Y, settingsPanel, (me) ->
-        {
-            // leaving this for now even though it doesn't do anything
-        });
-
-        settingsPanel.addUIElement(buttonLabel);
+        ModPanel settingsPanel = new ActiveModsConfigPanel();
 
         BaseMod.registerModBadge(badgeTexture, info.Name, String.join(", ", info.Authors), info.Description, settingsPanel);
     }
@@ -93,7 +90,7 @@ public class ActiveModsMod implements PostInitializeSubscriber
      */
     private static String checkResourcesPath()
     {
-        String name = ActiveModsMod.class.getName(); //getPackage can be iffy with patching, so class name is used instead.
+        String name = ActiveModsMain.class.getName(); //getPackage can be iffy with patching, so class name is used instead.
         int separator = name.indexOf('.');
         if (separator > 0)
         {
@@ -109,7 +106,7 @@ public class ActiveModsMod implements PostInitializeSubscriber
         throw new RuntimeException("\n\tFailed to find resources folder; expected it to be named \"" + name + "\"." +
                 " Either make sure the folder under resources has the same name as your mod's package, or change the line\n" +
                 "\t\"private static final String resourcesFolder = checkResourcesPath();\"\n" +
-                "\tat the top of the " + ActiveModsMod.class.getSimpleName() + " java file.");
+                "\tat the top of the " + ActiveModsMain.class.getSimpleName() + " java file.");
     }
 
     /**
@@ -125,7 +122,7 @@ public class ActiveModsMod implements PostInitializeSubscriber
                 return false;
             }
             Set<String> initializers = annotationDB.getAnnotationIndex().getOrDefault(SpireInitializer.class.getName(), Collections.emptySet());
-            return initializers.contains(ActiveModsMod.class.getName());
+            return initializers.contains(ActiveModsMain.class.getName());
         }).findFirst();
         if (infos.isPresent())
         {
