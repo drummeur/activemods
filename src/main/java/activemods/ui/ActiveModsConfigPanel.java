@@ -1,10 +1,7 @@
 package activemods.ui;
 
 import activemods.ActiveModsMain;
-import basemod.ModLabel;
-import basemod.ModPanel;
-import basemod.ModTextInput;
-
+import basemod.*;
 
 
 public class ActiveModsConfigPanel extends ModPanel
@@ -21,15 +18,19 @@ public class ActiveModsConfigPanel extends ModPanel
     // the nature of the mod menu in the first place
     public ActiveModsConfigPanel()
     {
+        //super(ActiveModsMain.modID, ActiveModsMain.makeID("ActiveModsConfig"));
         super();
 
-        int x = 400;
-        int y = 700;
 
-        String text = String.format("(%d, %d)", x, y);
-        ModTextInput ti = new ModTextInput(text, x, y, 100, 50, this, (me) -> {});
+        //ModButton btnScan = new ModLabeledButton(/*stuff*/)
 
-        this.addUIElement(ti);
+//        int x = 400;
+//        int y = 700;
+//
+//        String text = String.format("(%d, %d)", x, y);
+//        ModTextInput ti = new ModTextInput(text, x, y, 1000, 50, this, (me) -> {});
+//
+//        this.addUIElement(ti);
 
 //        for (int x=0; x < 1000; x+=100)
 //        {
@@ -39,12 +40,26 @@ public class ActiveModsConfigPanel extends ModPanel
 //            }
 //        }
 
-        /*ModLabel buttonLabel = new ModLabel("Coming soon!", LABEL_X, LABEL_Y, this, (me) ->
+        ModLabel comingSoon = new ModLabel("Coming soon!", LABEL_X, LABEL_Y, this, (me) ->
         {
             // leaving this for now even though it doesn't do anything
         });
 
-        this.addUIElement(buttonLabel);*/
+        /*ModLabel comingSoonInfo = new ModLabel("For now, please manually edit the config file.", LABEL_X, LABEL_Y-100, this, (me) ->
+        {
+            // leaving this for now even though it doesn't do anything
+        });
+
+        ModLabel configPath = new ModLabel(ActiveModsMain.GetActiveMods().GetConfigPath(), LABEL_X, LABEL_Y-300, this, (me) -> {});
+
+        ModLabeledButton showConfigPath = new ModLabeledButton("Show config path", LABEL_X, LABEL_Y-200, this, (me) ->
+        {
+            this.addUIElement(configPath);
+        });*/
+
+        this.addUIElement(comingSoon);
+        /*this.addUIElement(comingSoonInfo);
+        this.addUIElement(showConfigPath);*/
     }
 
 }
