@@ -1,5 +1,6 @@
 package activemods;
 
+import activemods.model.ActiveModInfo;
 import activemods.ui.ActiveModsConfigPanel;
 
 import basemod.*;
@@ -58,6 +59,16 @@ public class ActiveModsMain implements PostInitializeSubscriber
 
         BaseMod.subscribe(this); // This will make BaseMod trigger all the subscribers at their appropriate times.
         logger.info("{} subscribed to BaseMod.", modID);
+    }
+
+    public static List<ActiveModInfo> GetActiveModInfos()
+    {
+        if (container == null)
+        {
+            container = new ActiveMods();
+        }
+
+        return container.GetActiveMods();
     }
 
     public static ActiveMods GetActiveMods()
