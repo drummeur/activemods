@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import java.util.HashMap;
 
-import static activemods.ActiveModsMod.*;
+import static activemods.ActiveModsMain.*;
 
 public class TextureLoader
 {

@@ -12,7 +12,7 @@ import java.io.*;
 
 import java.util.Map;
 
-import static activemods.ActiveModsMod.modID;
+import static activemods.ActiveModsMain.modID;
 
 public class ActiveModInfo implements Serializable
 {
@@ -32,8 +32,8 @@ public class ActiveModInfo implements Serializable
     public String[] Dependencies;
     @SerializedName(ActiveModsConstants.OPTIONAL_DEPENDENCIES_KEY)
     public String[] OptionalDependencies;
-    @SerializedName(ActiveModsConstants.STEAM_WORKSHOP_URL_KEY)
-    public String SteamWorkshopUrl;
+    @SerializedName(ActiveModsConstants.MOD_URL_KEY)
+    public String ModUrl;
     @SerializedName(ActiveModsConstants.IS_WORKSHOP_MOD_KEY)
     public boolean IsSteamWorkshopMod;
 
@@ -50,16 +50,16 @@ public class ActiveModInfo implements Serializable
         this.Dependencies = info.Dependencies;
         this.OptionalDependencies = info.OptionalDependencies;
 
-        this.SteamWorkshopUrl = ModUrls.get(this.ModId);
+        this.ModUrl = ModUrls.get(this.ModId);
 
-        if (this.SteamWorkshopUrl == null)
+        if (this.ModUrl == null)
         {
             logger.info("Missing URL for mod {}.  Add it in the ActiveMods config!", this.Name);
             this.IsSteamWorkshopMod = false;
         }
         else
         {
-            this.IsSteamWorkshopMod = this.SteamWorkshopUrl.contains(ActiveModsConstants.STEAM_WORKSHOP_BASE_URL);
+            this.IsSteamWorkshopMod = this.ModUrl.contains(ActiveModsConstants.STEAM_WORKSHOP_BASE_URL);
         }
 
         logger.debug("Initialized {}", this.Name);

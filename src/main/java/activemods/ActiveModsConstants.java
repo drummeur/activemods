@@ -20,7 +20,7 @@ public class ActiveModsConstants
     public static final String STS_VERSION_KEY = "sts_version";
     public static final String MTS_VERSION_KEY = "mts_version";
 
-    public static final String STEAM_WORKSHOP_URL_KEY = "steam_workshop_url";
+    public static final String MOD_URL_KEY = "mod_url";
     public static final String IS_WORKSHOP_MOD_KEY = "is_steam_workshop_mod";
 
     public static final String MTS_FILENAME = "ModTheSpire.json";

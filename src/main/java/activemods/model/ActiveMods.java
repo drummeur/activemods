@@ -13,7 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-import static activemods.ActiveModsMod.modID;
+import static activemods.ActiveModsMain.modID;
 
 public class ActiveMods
 {
@@ -22,6 +22,7 @@ public class ActiveMods
     // this will only be populated after the first save
     private List<ActiveModInfo> ActiveMods;
     private Map<String, String> ModUrls;
+    private String configPath;
 
     private boolean Initialized;
 
@@ -30,12 +31,19 @@ public class ActiveMods
         this.ActiveMods = new ArrayList<>();
         this.ModUrls = new HashMap<>();
 
+        this.configPath = "the config path";
+
         this.Initialized = false;
     }
 
     public boolean isInitialized()
     {
         return this.Initialized;
+    }
+
+    public String GetConfigPath()
+    {
+        return this.configPath;
     }
 
     public List<ActiveModInfo> GetActiveMods()
